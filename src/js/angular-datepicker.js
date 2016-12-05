@@ -102,13 +102,13 @@
 
       return [
         '<div class="_720kb-datepicker-calendar-body">',
-          '<a href="javascript:void(0)" ng-repeat="px in prevMonthDays" class="_720kb-datepicker-calendar-day _720kb-datepicker-disabled">',
+          '<a href="javascript:void(0)" ng-repeat="px in prevMonthDays" class="_720kb-datepicker-calendar-day _720kb-datepicker-disabled" ng-class="{ \'_720kb-datepicker-highlighted\': isHighlightedDay(px, getPreviousMonthNumber(monthNumber), getPreviousMonthYear(monthNumber, year)) }">',
             '{{px}}',
           '</a>',
-          '<a href="javascript:void(0)" ng-repeat="item in days" ng-click="setDatepickerDay(item)" ng-class="{\'_720kb-datepicker-active\': day === item, \'_720kb-datepicker-disabled\': !isSelectableMinDate(year + \'/\' + monthNumber + \'/\' + item ) || !isSelectableMaxDate(year + \'/\' + monthNumber + \'/\' + item) || !isSelectableDate(monthNumber, year, item)}" class="_720kb-datepicker-calendar-day">',
+          '<a href="javascript:void(0)" ng-repeat="item in days" ng-click="setDatepickerDay(item)" ng-class="{\'_720kb-datepicker-active\': day === item, \'_720kb-datepicker-disabled\': !isSelectableMinDate(year + \'/\' + monthNumber + \'/\' + item ) || !isSelectableMaxDate(year + \'/\' + monthNumber + \'/\' + item) || !isSelectableDate(monthNumber, year, item), \'_720kb-datepicker-highlighted\': isHighlightedDay(item) }" class="_720kb-datepicker-calendar-day">',
             '{{item}}',
           '</a>',
-          '<a href="javascript:void(0)" ng-repeat="nx in nextMonthDays" class="_720kb-datepicker-calendar-day _720kb-datepicker-disabled">',
+          '<a href="javascript:void(0)" ng-repeat="nx in nextMonthDays" class="_720kb-datepicker-calendar-day _720kb-datepicker-disabled" ng-class="{ \'_720kb-datepicker-highlighted\': isHighlightedDay(nx, getNextMonthNumber(monthNumber), getNextMonthYear(monthNumber, year)) }">',
             '{{nx}}',
           '</a>',
         '</div>'
@@ -528,6 +528,22 @@
 
         $scope.setDatepickerDay = function setDatepickerDay(day) {
 
+          if($scope.dateRange) {
+            var start, end;
+
+            if($scope.isRangeStart()) {
+              start = new Date($scope.year + '/' + $scope.monthNumber + '/' + day);
+              end = new Date($scope.dateRangeEnd);
+            } else if($scope.isRangeEnd()) {
+              start = new Date($scope.dateRangeStart);
+              end = new Date($scope.year + '/' + $scope.monthNumber + '/' + day);
+            }
+
+            if(start > end) {
+              return;
+            }
+          }
+
           if ($scope.isSelectableDate($scope.monthNumber, $scope.year, day) &&
               $scope.isSelectableMaxDate($scope.year + '/' + $scope.monthNumber + '/' + day) &&
               $scope.isSelectableMinDate($scope.year + '/' + $scope.monthNumber + '/' + day)) {
@@ -542,6 +558,52 @@
             $scope.hideCalendar();
           }
         };
+
+        $scope.isRangeStart = function() {
+          return $scope.dateRangeOrder === 'start';
+        }
+
+        $scope.isRangeEnd = function() {
+          return $scope.dateRangeOrder === 'end';
+        }
+
+        $scope.isHighlightedDay = function(day, month, year) {
+          var month = month || $scope.monthNumber;
+          var year = year || $scope.year;
+
+          var start = new Date($scope.dateRangeStart);
+          var end = new Date($scope.dateRangeEnd);
+          var current = new Date(year + '/' + month + '/' + day);
+          return (current > start) && (current < end);
+        }
+
+        $scope.getPreviousMonthNumber = function(month) {
+          if(month === 1) {
+            return 12;
+          }
+          return month - 1;
+        }
+
+        $scope.getPreviousMonthYear= function(month, year) {
+          if(month === 1){
+            return year - 1;
+          }
+          return year;
+        }
+
+        $scope.getNextMonthNumber = function(month) {
+          if(month === 12) {
+            return 1;
+          }
+          return month + 1;
+        }
+
+        $scope.getNextMonthYear= function(month, year) {
+          if(month === 12){
+            return year + 1;
+          }
+          return year;
+        }
 
         $scope.paginateYears = function paginateYears(startingYear) {
           var i
@@ -854,7 +916,12 @@
           'datepickerAppendTo': '@',
           'datepickerToggle': '@',
           'datepickerClass': '@',
-          'datepickerShow': '@'
+          'datepickerShow': '@',
+          'dateRange': '@',
+          'dateRangeOrder': '@',
+          'dateRangeStart': '=',
+          'dateRangeEnd': '=',
+          'dateSelectCondition': '&'
         },
         'link': linkingFunction
       };

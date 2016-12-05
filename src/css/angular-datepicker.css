@@ -206,3 +206,68 @@ datepicker, .datepicker, [datepicker],
   background: rgba(25,2,0,0.02);
   cursor: default;
 }
+
+._720kb-datepicker-calendar {
+
+}
+
+._720kb-datepicker-calendar-header:nth-child(odd) {
+  font-family: $font-gotham-book;
+  background: #1472A5;
+}
+
+._720kb-datepicker-calendar-days-header div {
+/*  margin: 0 1px;*/
+  font-size: 0;
+}
+
+._720kb-datepicker-calendar-days-header div:first-letter {
+  font-size: 11.5px;
+}
+
+._720kb-datepicker-calendar-day {
+  font-family: $font-gotham-book;
+  margin: 1% 1%;
+  padding: 7px 0%;
+  border-radius: 2px;
+}
+
+._720kb-datepicker-calendar-day._720kb-datepicker-active {
+  color: #FFF;
+  background: #000;
+}
+
+._720kb-datepicker-calendar-day._720kb-datepicker-highlighted {
+  background: #c8dfeb;
+}
+
+._720kb-datepicker-calendar-day._720kb-datepicker-highlighted._720kb-datepicker-disabled {
+  background: rgba(20,114,165,0.1);
+}
+
+._720kb-datepicker-calendar-day:hover {
+  color: #FFF;
+  background: rgba(20,114,165,1); 
+}
+
+._720kb-datepicker-calendar-month a {
+  font-family: $font-gotham-book;
+  pointer-events: none;
+  color: #FFF;
+}
+
+._720kb-datepicker-calendar-month a span {
+  color: #c8dfeb;
+}
+
+._720kb-datepicker-calendar-month a span i {
+  display: none;
+}
+
+._720kb-datepicker-calendar-header a {
+  color: #c8dfeb;
+}
+
+._720kb-datepicker-calendar-header a:hover {
+
+}

@@ -19,6 +19,40 @@
   <div class="separator50"></div>
   <div class="col6 offset-left2">
     <div class="col3">
+      <datepicker
+        date-range="true"
+        date-range-order="start"
+        date-range-start="range.start"
+        date-range-end="range.end"
+        date-set="{{ defaultRange.start }}"
+        date-format="MM/dd/yyyy"
+        date-max-limit="{{ defaultRange.end }}">
+        <input 
+          class="range-input"
+          ng-model="range.start" 
+          type="text"/>
+      </datepicker>
+    </div>
+    <div class="col3">
+      <datepicker 
+        date-range="true"
+        date-range-order="end"
+        date-range-start="range.start"
+        date-range-end="range.end"
+        date-set="{{ defaultRange.end }}"
+        date-format="MM/dd/yyyy"
+        date-min-limit="range.start"
+        date-max-limit="{{ defaultRange.end }}">
+        <input 
+          class="range-input" 
+          ng-model="range.end" 
+          type="text"/>
+      </datepicker>
+      <div ng-if="hasError">Choose a valid date</div>
+    </div>
+  </div>
+<!--   <div class="col6 offset-left2">
+    <div class="col3">
       <div datepicker datepicker-class="test-custom-class" date-min-limit="2016/02/28" date-max-limit="2016/03/03" date-typer="true">
         <input ng-model="date1" type="text" class="angular-datepicker-input"/>
       </div>
@@ -46,7 +80,7 @@
       <input ng-model="date3" type="text" class="angular-datepicker-input"/>
     </datepicker>
     Date 3 is: {{date3}}
-  </div>
+  </div> -->
 </div>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
