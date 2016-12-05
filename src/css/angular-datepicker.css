@@ -237,7 +237,7 @@ datepicker, .datepicker, [datepicker],
   background: #000;
 }
 
-._720kb-datepicker-calendar-day._720kb-datepicker-highlighted {
+._720kb-datepicker-calendar-day:not(._720kb-datepicker-active)._720kb-datepicker-highlighted {
   background: #c8dfeb;
 }
 
@@ -245,7 +245,7 @@ datepicker, .datepicker, [datepicker],
   background: rgba(20,114,165,0.1);
 }
 
-._720kb-datepicker-calendar-day:hover {
+._720kb-datepicker-calendar-day:not(._720kb-datepicker-disabled):hover {
   color: #FFF;
   background: rgba(20,114,165,1); 
 }

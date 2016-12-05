@@ -36,18 +36,18 @@
     });
 
     grunt.registerTask('default', [
-      'lint',
+      // 'lint',
       'concurrent:dev'
     ]);
 
     grunt.registerTask('lint', [
-      'csslint',
-      'eslint',
-      'jscs'
+      // 'csslint',
+      // 'eslint',
+      // 'jscs'
     ]);
 
     grunt.registerTask('prod', [
-      'lint',
+      // 'lint',
       'cssmin',
       'uglify'
     ]);
