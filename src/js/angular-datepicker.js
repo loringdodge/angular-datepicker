@@ -164,7 +164,6 @@
 
             if (!isMouseOn &&
               !isMouseOnInput && theCalendar) {
-
               $scope.hideCalendar();
             }
           }
@@ -247,6 +246,7 @@
             }
           }
           , showCalendar = function showCalendar() {
+
             //lets hide all the latest instances of datepicker
             pageDatepickers = $window.document.getElementsByClassName('_720kb-datepicker-calendar');
 
@@ -261,7 +261,6 @@
             });
 
             if (theCalendar.classList) {
-
               theCalendar.classList.add('_720kb-datepicker-open');
             } else {
 
@@ -520,12 +519,14 @@
         };
 
         $scope.hideCalendar = function hideCalendar() {
+
           if (theCalendar.classList){
             theCalendar.classList.remove('_720kb-datepicker-open');
           } else {
 
             classHelper.remove(theCalendar, '_720kb-datepicker-open');
           }
+
         };
 
         $scope.setDatepickerDay = function setDatepickerDay(day) {
@@ -577,6 +578,7 @@
           var start = new Date($scope.dateRangeStart);
           var end = new Date($scope.dateRangeEnd);
           var current = new Date(year + '/' + month + '/' + day);
+
           return (current >= start) && (current <= end);
         }
 
@@ -845,17 +847,19 @@
 
             if (!isMouseOn &&
             !isMouseOnInput && theCalendar) {
-
               $scope.hideCalendar();
             } else {
-
               showCalendar();
             }
           });
         }
 
         thisInput.on('focusout blur', function onBlurAndFocusOut() {
-
+            $scope.month = $filter('date')(new Date($scope.savedDay), 'MMMM');
+            $scope.monthNumber = Number($filter('date')(new Date($scope.savedDay), 'MM'));
+            $scope.year = Number($filter('date')(new Date($scope.savedDay), 'yyyy'));
+            $scope.day = undefined;
+            setDaysInMonth($scope.monthNumber, $scope.year);
           isMouseOnInput = false;
         });
         //some tricky dirty events to fire if click is outside of the calendar and show/hide calendar when needed
@@ -870,7 +874,6 @@
         });
 
         angular.element(theCalendar).on('focusin', function onCalendarFocus() {
-
           isMouseOn = true;
         });
 
@@ -892,7 +895,7 @@
         }
 
         //datepicker boot start
-        $scope.paginateYears($scope.year);
+        // $scope.paginateYears($scope.year);
 
         setDaysInMonth($scope.monthNumber, $scope.year);
         $scope.checkVisibility = checkVisibility;
